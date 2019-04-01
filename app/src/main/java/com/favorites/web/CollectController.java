@@ -156,7 +156,7 @@ public class CollectController extends BaseController{
 	        @PathVariable("favoritesId") Long favoritesId,@PathVariable("userId") Long userId,
 			@PathVariable("category") String category) {
 		  Sort sort = new Sort(Direction.DESC, "id");
-	    Pageable pageable = PageRequest.of(page, size,sort);
+	    Pageable pageable = new PageRequest(page, size,sort);
 	    List<CollectSummary> collects = null;
 	    if("otherpublic".equalsIgnoreCase(type)){
 	    	if(null != favoritesId && 0 != favoritesId){
@@ -183,7 +183,7 @@ public class CollectController extends BaseController{
 	public List<CollectSummary> lookAround(@RequestParam(value = "page", defaultValue = "0") Integer page,
 										 @RequestParam(value = "size", defaultValue = "15") Integer size) {
 		Sort sort = new Sort(Direction.DESC, "id");
-		Pageable pageable = PageRequest.of(page, size, sort);
+		Pageable pageable = new PageRequest(page, size, sort);
 		List<CollectSummary> collects =lookAroundService.queryCollectExplore(pageable, getUserId(),null);
 		return collects;
 	}
@@ -203,7 +203,7 @@ public class CollectController extends BaseController{
 	        @PathVariable("favoritesId") Long favoritesId,@PathVariable("userId") Long userId
 			,@PathVariable("category") String category) {
 		Sort sort = new Sort(Direction.DESC, "id");
-	    Pageable pageable = PageRequest.of(page, size,sort);
+		Pageable pageable = new PageRequest(page, size,sort);
 	    List<CollectSummary> collects = null;
 	    if("otherpublic".equalsIgnoreCase(type)){
 	    	if(null != favoritesId && 0 != favoritesId){
@@ -364,7 +364,7 @@ public class CollectController extends BaseController{
 	public List<CollectSummary> searchMy(Model model,@RequestParam(value = "page", defaultValue = "0") Integer page,
 	        @RequestParam(value = "size", defaultValue = "20") Integer size, @PathVariable("key") String key) {
 		Sort sort = new Sort(Direction.DESC, "id");
-	    Pageable pageable = PageRequest.of(page, size,sort);
+	    Pageable pageable = new PageRequest(page, size,sort);
 	    List<CollectSummary> myCollects=collectService.searchMy(getUserId(),key ,pageable);
 		model.addAttribute("myCollects", myCollects);
 		logger.info("searchMy end :");
@@ -375,7 +375,7 @@ public class CollectController extends BaseController{
 	public List<CollectSummary> searchOther(Model model,@RequestParam(value = "page", defaultValue = "0") Integer page,
 	        @RequestParam(value = "size", defaultValue = "20") Integer size, @PathVariable("key") String key) {
 		Sort sort = new Sort(Direction.DESC, "id");
-	    Pageable pageable = PageRequest.of(page, size,sort);
+	    Pageable pageable = new PageRequest(page, size,sort);
 	    List<CollectSummary> otherCollects=collectService.searchOther(getUserId(), key, pageable);
 		logger.info("searchOther end :");
 		return otherCollects;

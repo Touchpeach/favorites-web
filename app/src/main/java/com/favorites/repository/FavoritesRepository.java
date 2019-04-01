@@ -15,6 +15,8 @@ import com.favorites.domain.Favorites;
 
 public interface FavoritesRepository extends JpaRepository<Favorites, Long> {
 
+	void deleteById(Long id);
+
 	Favorites findById(long  id);
 
 	List<Favorites> findByUserId(Long userId);
